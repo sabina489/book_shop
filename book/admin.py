@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from book.models import Book, BookCategory, BookInventory, User
+from book.models import Book, BookCategory, BookInventory
 # Register your models here.
 
 @admin.register(Book)
@@ -10,6 +10,7 @@ class BookAdmin(admin.ModelAdmin):
         "author",
         "description",
         "price",
+        "category",
         )
 
 @admin.register(BookCategory)
@@ -25,8 +26,6 @@ class BookCategoryAdmin(admin.ModelAdmin):
 class BookInventoryAdmin(admin.ModelAdmin):
     readonly_fields = ("id",)
 
-@admin.register(User)
-class UserAdmin(admin.ModelAdmin):
-    readonly_fields = ("id",)
+
 
 

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from book.models import Book, BookCategory, BookInventory, User
+from book.models import Book, BookCategory, BookInventory
 
 
 class BookCreateSerializer(serializers.ModelSerializer):
@@ -13,11 +13,13 @@ class BookCreateSerializer(serializers.ModelSerializer):
             "author", 
             "description", 
             "price", 
-            "image_url", 
+            "image", 
             "follow_author", 
             "book_available", 
             "category",
         )
+
+
     
 
 
@@ -31,7 +33,7 @@ class BookRetrieveSerializer(serializers.ModelSerializer):
             "author", 
             "description", 
             "price", 
-            "image_url", 
+            "image", 
             "follow_author", 
             "book_available", 
             "category",
@@ -47,7 +49,7 @@ class BookUpdateSerializer(serializers.ModelSerializer):
             "author", 
             "description", 
             "price", 
-            "image_url", 
+            "image", 
             "follow_author", 
             "book_available", 
             "category",
@@ -63,7 +65,7 @@ class BookDeleteSerializer(serializers.ModelSerializer):
             "author", 
             "description", 
             "price", 
-            "image_url", 
+            "image", 
             "follow_author", 
             "book_available", 
             "category",
@@ -77,6 +79,7 @@ class BookCategoryCreateSerializer(serializers.ModelSerializer):
             "id",    
             "category_name", 
             "description",
+            "image",
         )
     
 
@@ -89,6 +92,7 @@ class BookCategoryRetrieveSerializer(serializers.ModelSerializer):
             "id",    
             "category_name", 
             "description",
+            "image",
         )
 
 class BookCategoryUpdateSerializer(serializers.ModelSerializer):
@@ -99,6 +103,7 @@ class BookCategoryUpdateSerializer(serializers.ModelSerializer):
             "id",    
             "category_name", 
             "description",
+            "image",
         )
 
 class BookCategoryDeleteSerializer(serializers.ModelSerializer):
@@ -109,6 +114,7 @@ class BookCategoryDeleteSerializer(serializers.ModelSerializer):
             "id",    
             "category_name", 
             "description",
+            "image",
         )
 
 class BookInventoryCreateSerializer(serializers.ModelSerializer):
@@ -151,15 +157,3 @@ class BookInventoryDeleteSerializer(serializers.ModelSerializer):
             "quantity",
         )
 
-class UserCreateSerializer(serializers.ModelSerializer):
-    """Serializer for creating user."""
-    class Meta:
-        model = User
-        fields = (
-            "id",    
-            "username",
-            # "middlename"
-            # "lastname", 
-            "password",
-            "email",
-        )

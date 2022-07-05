@@ -1,7 +1,5 @@
 from django.urls import path
 
-
-
 from book.api.views import (
     BookCreateAPIView,
     BookListAPIView,
@@ -21,7 +19,6 @@ from book.api.views import (
     BookInventoryListAPIView,
     BookInventoryDeleteAPIView,
 
-    UserCreateAPIView,
 )
 
 urlpatterns = [
@@ -42,8 +39,6 @@ urlpatterns = [
     path("book/inventory/<int:pk>/", BookInventoryRetrieveAPIView.as_view(), name='book-inventory-retrieve'),
     path("book/inventory/<int:pk>/update/", BookInventoryUpdateAPIView.as_view(), name='book-inventory-update'),
     path("book/inventory/<int:pk>/delete/", BookInventoryDeleteAPIView.as_view(), name='book-inventory-delete'),
-
-    path("user/create/", UserCreateAPIView.as_view(), name='user-create'),
 ]
 
     

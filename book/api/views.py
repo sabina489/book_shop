@@ -1,20 +1,15 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
-from book.models import Book, BookCategory, BookInventory, User
+from book.models import Book, BookCategory, BookInventory
 from rest_framework import generics
-from book.api.serializers import (
-    BookCreateSerializer,
-    BookRetrieveSerializer,
-    BookUpdateSerializer,
-    BookDeleteSerializer,
-    BookCategoryCreateSerializer,
-    BookInventoryCreateSerializer,
-    UserCreateSerializer,
 
-)
+
 from rest_framework.permissions import AllowAny,IsAuthenticated
 
-# from ..filters import BookFilter
+from book.api.paginations import LargeResultsSetPagination
+# from book import Book
+from .filters import BookFilter
+
 
 from rest_framework.generics import (
     CreateAPIView,
@@ -23,8 +18,6 @@ from rest_framework.generics import (
     RetrieveAPIView,
     UpdateAPIView,
 )
-
-
 
 from book.api.serializers import (
     BookCreateSerializer,
@@ -40,9 +33,6 @@ from book.api.serializers import (
     BookInventoryUpdateSerializer,
     BookInventoryDeleteSerializer,
 
-    UserCreateSerializer,
-
-
 )
 
 class BookCreateAPIView(CreateAPIView):
@@ -51,12 +41,17 @@ class BookCreateAPIView(CreateAPIView):
     serializer_class = BookCreateSerializer
     queryset = Book.objects.all()
 
+
+
 class BookListAPIView(ListAPIView):
     """View for listing all books."""
     permission_classes = [AllowAny]
     serializer_class = BookRetrieveSerializer
     queryset = Book.objects.all()
-    # filterset_class = BookFilter
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+    pagination_class = LargeResultsSetPagination
+    search_fields = ['category','price']
+    filterset_class = BookFilter
 
 class BookRetrieveAPIView(RetrieveAPIView):
     """View for retrieving a book."""
@@ -81,11 +76,13 @@ class BookCategoryCreateAPIView(CreateAPIView):
     permission_classes = [AllowAny]
     serializer_class = BookCategoryCreateSerializer
 
+
 class BookCategoryListAPIView(ListAPIView):
     """View for listing all book categories."""
     permission_classes = [AllowAny]
     serializer_class = BookCategoryRetrieveSerializer
     queryset = BookCategory.objects.all()
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
 
 class BookCategoryRetrieveAPIView(RetrieveAPIView):
     """View for retrieving a book category."""
@@ -116,6 +113,8 @@ class BookInventoryListAPIView(ListAPIView):
     permission_classes = [AllowAny]
     serializer_class = BookInventoryRetrieveSerializer
     queryset = BookInventory.objects.all()
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+
 
 class BookInventoryRetrieveAPIView(RetrieveAPIView):
     """View for retrieving a book inventory."""
@@ -137,8 +136,3 @@ class BookInventoryDeleteAPIView(DestroyAPIView):
 
 
 
-class UserCreateAPIView(CreateAPIView):
-    """View for creating a user."""
-    permission_classes = [AllowAny]
-    serializer_class = UserCreateSerializer
-    queryset = User.objects.all()
