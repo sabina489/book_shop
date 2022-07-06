@@ -60,6 +60,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "django_filters",
     "order",
+    "cart",
+    "account",
 ]
 
 MIDDLEWARE = [
@@ -78,7 +80,7 @@ ROOT_URLCONF = 'e_commerce.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        "DIRS": [(BASE_DIR / "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -180,6 +182,21 @@ CSRF_TRUSTED_ORIGINS = env(
     ],
 )
 # cors end
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/4.0/howto/static-files/
+
+STATIC_URL = env("STATIC_URL")
+if DEBUG:
+    STATICFILES_DIRS = [(BASE_DIR / "static")]
+else:
+    STATICFILES_ROOT = [(BASE_DIR / "static")]
+STATIC_ROOT = BASE_DIR / "static-live"
+
+# Media files
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (

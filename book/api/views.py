@@ -50,7 +50,7 @@ class BookListAPIView(ListAPIView):
     queryset = Book.objects.all()
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     pagination_class = LargeResultsSetPagination
-    search_fields = ['category','price']
+    search_fields = ['category','price','title']
     filterset_class = BookFilter
 
 class BookRetrieveAPIView(RetrieveAPIView):

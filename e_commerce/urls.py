@@ -56,8 +56,17 @@ urlpatterns += [
     path('admin/', admin.site.urls),
     # path('api/', include('book.urls')),
     path('api/book/', include("book.api.urls")),
+    path('api/cart/', include("cart.api.urls")),
+    path('api/order/', include("order.api.urls")),
+    path('api/account/', include("account.api.urls")),
+    
     # path('api/order/', include("order.api.urls")),  
-
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
 
 

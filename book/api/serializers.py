@@ -20,9 +20,6 @@ class BookCreateSerializer(serializers.ModelSerializer):
         )
 
 
-    
-
-
 class BookRetrieveSerializer(serializers.ModelSerializer):
     """Serializer for retrieving a book."""
     class Meta:
