@@ -1,11 +1,18 @@
 from django.contrib import admin
-from .models import *
+
+from account.models import User,Profile, Register
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = (
         "user",
-        "firstname",
+        "email",
+        "password",
     )
 
-# Register your models here.
+@admin.register(Register)
+class RegisterAdmin(admin.ModelAdmin):
+    list_display = (
+        "email",
+        "password",
+    )

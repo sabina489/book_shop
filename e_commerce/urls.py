@@ -22,6 +22,13 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
+# from rest_framework.authtoken import views
+
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 schema_view = get_schema_view(
     openapi.Info(
         title="Snippets API",
@@ -54,11 +61,18 @@ urlpatterns = [
 
 urlpatterns += [
     path('admin/', admin.site.urls),
-    # path('api/', include('book.urls')),
+
     path('api/book/', include("book.api.urls")),
     path('api/cart/', include("cart.api.urls")),
     path('api/order/', include("order.api.urls")),
-    path('api/account/', include("account.api.urls")),
+    path('api/account/',include('account.api.urls')),
+    # path('api-token-auth/', include("rest_framework.urls")),
+    # path('api/auth/', include("dj_rest_auth.urls")),
+    
+    # path('api-token-auth/',views.obtain_auth_token)
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
     
     # path('api/order/', include("order.api.urls")),  
 ]
