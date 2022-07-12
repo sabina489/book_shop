@@ -1,4 +1,3 @@
-# import imp
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import generics,status,permissions,mixins
 from django_filters.rest_framework import DjangoFilterBackend
@@ -43,7 +42,6 @@ class RegisterView(CreateAPIView):
         'payload': serializer.data,
         'refresh': str(refresh),
         'access': str(refresh.access_token), 'message': 'Your data is saved'})
-
 
 
 class ProfileCreateAPIView(CreateAPIView):

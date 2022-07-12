@@ -3,7 +3,7 @@ from django.db import models
 
 from django.contrib.auth.models import User
 from datetime import datetime
-from book.models import Book, BookCategory, BookInventory
+from book.models import Book
 
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,blank=True,null=True)
@@ -16,7 +16,7 @@ class Cart(models.Model):
     
     def __str__(self):
         """Unicode representation of Cart."""
-        return self.user
+        return f"{self.user.username}"
 
 class CartItem(models.Model):
     product = models.ForeignKey(Book, on_delete=models.CASCADE)
