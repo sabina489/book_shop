@@ -1,0 +1,24 @@
+#Byte-compiled
+__pycache__/
+
+# Packages
+__pypackages__/
+
+# Packages created by pip
+.pip/
+
+# Environment variables
+.env/
+.venv/
+.venv-py3/
+.venv-py3.6/
+.venv-py3.7/
+.venv-py3.8/
+
+# Log files
+log/
+db.sqlite3/
+
+
+# Temp files
+tmp/

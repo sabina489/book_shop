@@ -2,6 +2,14 @@ from django.db import models
 from decimal import Decimal
 from django.utils.translation import gettext_lazy as _
 
+
+# # payments methods
+# METHOD = (
+#     ('COD', 'Cash on Delivery'),
+
+#     ('Esewa',Esewa),
+# )
+
 class Order_Detail(models.Model):
     """Model for book order details."""
     user_id = models.CharField(_("user_id"),max_length = 100)
