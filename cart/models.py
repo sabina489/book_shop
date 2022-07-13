@@ -1,6 +1,6 @@
 from tabnanny import verbose
 from django.db import models
-
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 from datetime import datetime
 from book.models import Book
@@ -16,12 +16,13 @@ class Cart(models.Model):
     
     def __str__(self):
         """Unicode representation of Cart."""
-        return f"{self.user.username}"
+        return str(self.user)
 
 class CartItem(models.Model):
     product = models.ForeignKey(Book, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
-    # price_ht = models.FloatField(blank=True)
+    quantity = models.IntegerField(_("quantity"),default=1)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE,blank=True,null=True)
+    price = models.FloatField(_("price"),null=True, blank=True)
     # cart = models.ForeignKey('Cart', on_delete=models.CASCADE)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
 

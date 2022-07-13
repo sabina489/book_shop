@@ -32,6 +32,9 @@ class ProfileCreateSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "user",
+            "first_name",
+            "middle_name",
+            "last_name",
             "email",
             "password",
         )

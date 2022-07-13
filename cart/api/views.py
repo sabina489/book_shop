@@ -14,6 +14,7 @@ from rest_framework.generics import (
 
 from cart.api.serializers import (
     CartItemCreateSerializer,
+    CartItemRetrieveSerializer,
     CartCreateSerializer,
 )
 
@@ -30,3 +31,10 @@ class CartItemCreateAPIView(CreateAPIView):
     queryset = CartItem.objects.all()
     def perform_create(self, serializer):
         serializer.save(cart=self.request.user.cart)
+
+class CartItemListAPIView(ListAPIView):
+    """View for listing all cart items."""
+    permission_classes = [AllowAny]
+    serializer_class = CartItemRetrieveSerializer
+    queryset = CartItem.objects.all()
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]

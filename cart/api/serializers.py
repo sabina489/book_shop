@@ -20,4 +20,18 @@ class CartItemCreateSerializer(serializers.ModelSerializer):
             "product", 
             "quantity", 
             "cart",
+            "price",
         )
+
+class CartItemRetrieveSerializer(serializers.ModelSerializer):
+    """Serializer for retrieving a cart item."""
+    class Meta:
+        model = CartItem
+        fields = (
+            "id",    
+            "product", 
+            "quantity", 
+            "cart",
+            "price",
+        )
+
