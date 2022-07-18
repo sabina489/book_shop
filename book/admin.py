@@ -1,4 +1,5 @@
 from django.contrib import admin
+from book.api.views import CreateCheckoutSessionView
 
 from book.models import Book, BookCategory, BookInventory
 # Register your models here.
@@ -25,6 +26,8 @@ class BookCategoryAdmin(admin.ModelAdmin):
 @admin.register(BookInventory)
 class BookInventoryAdmin(admin.ModelAdmin):
     readonly_fields = ("id",)
+
+
 
 
 
