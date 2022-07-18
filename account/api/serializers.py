@@ -1,5 +1,6 @@
+from tkinter import S
 from rest_framework import serializers
-from account.models import User,Profile, Register
+from account.models import User, Register, Profile
 from rest_framework.validators import UniqueValidator
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -12,7 +13,12 @@ class RegisterSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ('username','email','password',)
+        fields = (
+            'id',
+            'username',
+            'email',
+            'password',
+        )
 
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
@@ -23,7 +29,12 @@ class RegisterSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username','email',]
+        fields = [
+            'id',
+            'username',
+            'email',
+            'password',
+        ]
 
 class ProfileCreateSerializer(serializers.ModelSerializer):
     """serializer for creating a account."""
@@ -32,9 +43,29 @@ class ProfileCreateSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "user",
-            "first_name",
-            "middle_name",
-            "last_name",
-            "email",
-            "password",
+            # "email",
+            # "password",
         )
+
+class UserSerializer(serializers.ModelSerializer):
+    """serializer for creating a account."""
+    class Meta:
+        model = User
+        fields = (
+            "id",
+            "username",
+            "email",
+        )
+
+class ProfileRetrieveSerializer(serializers.ModelSerializer):
+    """serializer for retrieving a account."""
+    user = UserSerializer(read_only = True)
+    class Meta:
+        model = Profile
+        fields = (
+            "id",
+            "user",
+        )
+    
+    # def get_user(self, obj):
+    #     return UserSerializer(self.request.user).data

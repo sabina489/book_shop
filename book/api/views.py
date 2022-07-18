@@ -50,7 +50,8 @@ class BookListAPIView(ListAPIView):
     queryset = Book.objects.all()
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     pagination_class = LargeResultsSetPagination
-    search_fields = ['category','price','title']
+    # search_fields = ['category','price','title']
+    search_fields = ['title']
     filterset_class = BookFilter
 
 class BookRetrieveAPIView(RetrieveAPIView):
@@ -133,6 +134,45 @@ class BookInventoryDeleteAPIView(DestroyAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = BookInventoryDeleteSerializer
     queryset = BookInventory.objects.all()
+
+# import stripe
+# from django.conf import settings
+# from django.views import View
+# from django.http import HttpResponse,JsonResponse
+# from book.models import Book
+
+# stripe.api_key = settings.STRIPE_SECRET_KEY
+
+# class CreateCheckoutSessionView(View):
+#     def post(self, request, *args, **kwargs):
+#         product_id = self.kwargs["pk"]
+#         product = Book.objects.get(id=product_id)
+#         YOUR_DOMAIN = "http://127.0.0.1:8000"
+#         checkout_session = stripe.checkout.Session.create(
+#             payment_method_types=['card'],
+#             line_items=[
+#                 {
+#                     'price_data': {
+#                         'currency': 'usd',
+#                         'unit_amount': product.price,
+#                         'product_data': {
+#                             'name': product.name,
+                
+#                         },
+#                     },
+#                     'quantity': 1,
+#                 },
+#             ],
+#             metadata={
+#                 "product_id": product.id
+#             },
+#             mode='payment',
+#             success_url=YOUR_DOMAIN + '/success/',
+#             cancel_url=YOUR_DOMAIN + '/cancel/',
+#         )
+#         return JsonResponse({
+#             'id': checkout_session.id
+#         })
 
 
 

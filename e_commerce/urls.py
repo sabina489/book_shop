@@ -22,6 +22,8 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
+# from book.views import CreateCheckoutSessionView
+
 # from rest_framework.authtoken import views
 
 from rest_framework_simplejwt.views import (
@@ -72,6 +74,8 @@ urlpatterns += [
     # path('api-token-auth/',views.obtain_auth_token)
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    # path('api/checkout/', CreateCheckoutSessionView.as_view(), name='create_checkout_session'),
 
     
     # path('api/order/', include("order.api.urls")),  

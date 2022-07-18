@@ -6,8 +6,8 @@ from account.models import User,Profile, Register
 class ProfileAdmin(admin.ModelAdmin):
     list_display = (
         "user",
-        "email",
-        "password",
+        # "email",
+        # "password",
     )
 
 @admin.register(Register)
