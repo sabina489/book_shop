@@ -19,7 +19,7 @@ from book.api.views import (
     BookInventoryListAPIView,
     BookInventoryDeleteAPIView,
 
-    CreateCheckoutSessionView,
+    # CreateCheckoutSessionView,
     ProductLandingPageView,
 
 )
@@ -43,7 +43,7 @@ urlpatterns = [
     path("book/inventory/<int:pk>/update/", BookInventoryUpdateAPIView.as_view(), name='book-inventory-update'),
     path("book/inventory/<int:pk>/delete/", BookInventoryDeleteAPIView.as_view(), name='book-inventory-delete'),
 
-    path("book/checkout/create/", CreateCheckoutSessionView.as_view(), name='book-checkout-create'),
+    # path("book/checkout/create/", CreateCheckoutSessionView.as_view(), name='book-checkout-create'),
     path("product/", ProductLandingPageView.as_view(), name='product-landing-page'),
 ]
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from book.api.views import CreateCheckoutSessionView
+
 
 from book.models import Book, BookCategory, BookInventory
 # Register your models here.
