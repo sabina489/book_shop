@@ -31,6 +31,8 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from cart.models import Cart
+
 class RegisterView(CreateAPIView):
     """Register a new user."""
     serializer_class = RegisterSerializer
@@ -49,6 +51,7 @@ class RegisterView(CreateAPIView):
         serializer.save()
 
         user = User.objects.get(username = request.data['username'])
+        cart = Cart.objects.create(user = user)
         refresh = RefreshToken.for_user(user)
 
         return Response({'status': 200,

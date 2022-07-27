@@ -12,7 +12,7 @@ from book.api.paginations import LargeResultsSetPagination
 from .filters import BookFilter
 
 # stripe 
-import stripe
+# import stripe
 from django.conf import settings
 from django.views import View
 from django.views.generic import TemplateView

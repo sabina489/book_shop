@@ -3,12 +3,12 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 from datetime import datetime
-from book.models import Book
+from book.models import Book, BookCategory
 
 class Cart(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE,blank=True,null=True)
-    total = models.PositiveIntegerField(default=0)
-    created_at = models.DateTimeField(default=datetime.now,blank=True,null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    total = models.FloatField(_("price"),null=True, blank=True)
+    created_at = models.DateTimeField(default=datetime.now)
 
     class Meta:
         """Meta definition for Cart."""
@@ -22,10 +22,11 @@ class Cart(models.Model):
 class CartItem(models.Model):
     product = models.ForeignKey(Book, on_delete=models.CASCADE)
     quantity = models.IntegerField(_("quantity"),default=1)
-    # user = models.ForeignKey(User, on_delete=models.CASCADE,blank=True,null=True)
     price = models.FloatField(_("price"),null=True, blank=True)
     
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    
+    
 
     class Meta:
         verbose_name = "CartItem"

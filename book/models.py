@@ -34,7 +34,6 @@ class Book(models.Model):
     author = models.CharField(_("author"),max_length = 200)
     description = models.CharField(_("description"),max_length = 500, blank=True, null=True)
     price = models.FloatField(_("price"),null=True, blank=True)
-    # image_url = models.CharField(_("image_url"),max_length = 2083, blank=True, null=True)
     image = models.ImageField(upload_to='book/',blank = True, null=True)
     follow_author = models.CharField(_("follow_author"),max_length=2083, blank=True, null=True)  
     book_available = models.BooleanField(_("book_available"),default=False)
