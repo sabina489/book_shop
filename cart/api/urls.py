@@ -10,8 +10,8 @@ from cart.api.views import (
 
 urlpatterns = [
     path("create/", CartCreateAPIView.as_view(), name="cart-create"),
+    path("retrieve/", CartRetrieveAPIView.as_view(), name="cart-retrieve"),
     path("item/create/", CartItemCreateAPIView.as_view(), name='cart-item-create'),
     path("item/list/", CartItemListAPIView.as_view(), name='cart-item-list'),
-    path("retrieve/", CartRetrieveAPIView.as_view(), name='cart-retrieve'),
-    path("item/<int:pk>/", CartItemRetrieveAPIView.as_view(), name='cart-item-detail'),
+    path("item/retrieve/<int:pk>", CartItemRetrieveAPIView.as_view(), name='cart-item-retrieve'),
 ]

@@ -8,7 +8,6 @@ from order.models import Order_Detail, Order_Items
 class Order_detailAdmin(admin.ModelAdmin):
     list_display = (
         "user_id",
-        "book_id",
         "total",
         "order_date",
     )

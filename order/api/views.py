@@ -69,7 +69,7 @@ class OrderItemListAPIView(ListAPIView):
     permission_classes = [AllowAny]
     serializer_class = OrderItemRetrieveSerialier
     queryset = Order_Items.objects.all()
-    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+    filter_backends = [filters.SearchFilter]
 
 class OrderItemRetrieveAPIView(RetrieveAPIView):
     """View for retrieving a order_item."""

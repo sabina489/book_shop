@@ -40,6 +40,15 @@ class CartItemCreateSerializer(serializers.ModelSerializer):
             "quantity",
             "cart",
         )
+        read_only_fields = ("id", "cart")
+    def create(self, validated_data):
+        """Create a new cart item."""
+        with transaction.atomic():
+            cart, _ = Cart.objects.get_or_create(user=self.context["request"].user)
+            print(cart)
+            cart_item = CartItem.objects.create(cart=cart, **validated_data)
+            return cart_item
+    
   
 
 class CartItemRetrieveSerializer(serializers.ModelSerializer):
@@ -51,14 +60,12 @@ class CartItemRetrieveSerializer(serializers.ModelSerializer):
             "id",    
             "product", 
             "quantity",
-     
-            "cart",
-            
+            # "cart", 
         )
 
 class CartRetrieveSerializer(serializers.ModelSerializer):
     """Serializer for retrieving a cart."""
-    cart_items = CartItemRetrieveSerializer(read_only=True)
+    cart_items = CartItemRetrieveSerializer(read_only=True, many=True)
     class Meta:
         model = Cart
         fields = (

@@ -8,7 +8,7 @@ class OrderDetailCreateSerialier(serializers.ModelSerializer):
         fields = (
             "id",
             "user_id",
-            "book_id",
+            # "book_id",
             "total",
             "order_date",
         )
@@ -19,7 +19,7 @@ class OrderDetailRetrieveSerialier(serializers.ModelSerializer):
         fields = (
             "id",
             "user_id",
-            "book_id",
+            # "book_id",
             "total",
             "order_date",
         )
@@ -30,7 +30,7 @@ class OrderDetailUpdateSerialier(serializers.ModelSerializer):
         fields = (
             "id",
             "user_id",
-            "book_id",
+            # "book_id",
             "total",
             "order_date",
         )
@@ -43,7 +43,7 @@ class OrderDetailDeleteSerialier(serializers.ModelSerializer):
             "user_id",
             "book_id",
             "total",
-            "order_date",
+            # "order_date",
         )
 
 class OrderItemCreateSerialier(serializers.ModelSerializer):
