@@ -16,6 +16,7 @@ class Order_detailAdmin(admin.ModelAdmin):
 class Order_itemsAdmin(admin.ModelAdmin):
     list_display = (
         "order_id",
-        "book_id",
-        "quantity",
+        "order_product",
+        "order_price",
+        "order_quantity",
     )

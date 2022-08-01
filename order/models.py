@@ -2,27 +2,32 @@ from django.db import models
 from decimal import Decimal
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
+from book.models import Book
+from cart.models import Cart
 
 
 # payments methods
 METHOD = (
-    # ('paypal', 'PayPal'),
-
     ("Esewa","Esewa"),
 )
+
+class OrderStatus:
+    PENDING = "pending"
+    SUCCESS = "success"
+    CHOICES = [
+        (PENDING, "pending"),
+        (SUCCESS, "success")
+    ]
 
 
 class Order_Detail(models.Model):
     """Model for book order details."""
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    # book_id = models.CharField(_("book_id"),max_length = 100)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True,blank=True)
     total = models.DecimalField(
-        _("total"), max_digits=5, decimal_places=2, default=Decimal("2.0")
+        _("total"), max_digits=5, decimal_places=2, default=Decimal("0.0")
     )
     order_date = models.DateTimeField(_("order_date"),auto_now_add=True)
-
-    payment_method = models.CharField(
-        _("payment_method"), max_length=10, choices=METHOD, default="Esewa")
+    order_status = models.CharField(choices=OrderStatus.CHOICES,default=OrderStatus.PENDING, max_length=32)
     class Meta:
         verbose_name = "Order_detail"
         verbose_name_plural = "Order_details"
@@ -33,20 +38,16 @@ class Order_Detail(models.Model):
 
 class Order_Items(models.Model):
     """Model for book order items."""
-    order_id = models.CharField(_("order_id"),max_length = 100)
-    book_id = models.CharField(_("book_id"),max_length = 100)
-    quantity = models.ForeignKey(
-        Order_Detail,
-        verbose_name=_("quantity"),
-        related_name="quantity",
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True,
-    )
+    order_product = models.ForeignKey(Book, on_delete=models.CASCADE)
+    order_quantity = models.IntegerField(default=0,blank=True, null=True)
+    order_price = models.DecimalField(_("order_price"),max_digits=5, decimal_places=2,default=Decimal("0.0"))
+    order_id = models.ForeignKey(Order_Detail, on_delete=models.CASCADE, related_name="order_items")
+
     class Meta:
         verbose_name = "Order_items"
         verbose_name_plural = "Order_items"
 
     def __str__(self):
         """Unicode representation of Order_items."""
-        return self.order_id
+        return f"{self.order_cart} {self.order_product}"
+

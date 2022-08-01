@@ -45,9 +45,25 @@ class CartItemCreateSerializer(serializers.ModelSerializer):
         """Create a new cart item."""
         with transaction.atomic():
             cart, _ = Cart.objects.get_or_create(user=self.context["request"].user)
-            print(cart)
             cart_item = CartItem.objects.create(cart=cart, **validated_data)
             return cart_item
+
+class CartItemDeleteSerializer(serializers.ModelSerializer):
+    """Serializer for deleting a cart item."""
+    class Meta:
+        model = CartItem
+        fields = (
+            "id",
+            "product",
+            "quantity",
+            "cart",
+            )
+        read_only_fields = ("id",)
+
+    def delete(self, instance):
+        """Delete a cart item."""
+        instance.delete()
+        return instance
     
   
 

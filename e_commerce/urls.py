@@ -68,12 +68,14 @@ urlpatterns += [
     path('api/cart/', include("cart.api.urls")),
     path('api/order/', include("order.api.urls")),
     path('api/account/',include('account.api.urls')),
+    path('api/payment/',include('payments.api.urls')),
     # path('api-token-auth/', include("rest_framework.urls")),
     # path('api/auth/', include("dj_rest_auth.urls")),
     
     # path('api-token-auth/',views.obtain_auth_token)
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    
 
     # path('api/checkout/', CreateCheckoutSessionView.as_view(), name='create_checkout_session'),
 

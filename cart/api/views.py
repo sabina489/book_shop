@@ -10,6 +10,7 @@ from rest_framework.generics import (
     CreateAPIView,
     ListAPIView,
     RetrieveAPIView,
+    DestroyAPIView,
     UpdateAPIView,
     GenericAPIView,
 )
@@ -56,6 +57,12 @@ class CartItemRetrieveAPIView(RetrieveAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = CartItemRetrieveSerializer
     queryset = CartItem.objects.all()
+
+class CartItemDeleteAPIView(DestroyAPIView):
+    """View for deleting a cart item."""
+    permission_classes = [IsAuthenticated]
+    serializer_class = CartItemRetrieveSerializer
+    queryset = CartItem.objects.all()
     
 class CartRetrieveAPIView(GenericAPIView):
     """View for retrieving a cart."""
@@ -71,3 +78,5 @@ class CartRetrieveAPIView(GenericAPIView):
         cart = self.get_object()
         serializer = self.get_serializer(cart)
         return Response(serializer.data)
+
+

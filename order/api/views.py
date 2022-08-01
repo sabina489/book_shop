@@ -24,11 +24,9 @@ from order.api.serializers import (
     OrderItemDeleteSerialier,
 )
 
-
-
 class OrderDetailCreateAPIView(CreateAPIView):
     """View for creating a order_detail."""
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     serializer_class = OrderDetailCreateSerialier
     queryset = Order_Detail.objects.all()
 
@@ -41,7 +39,7 @@ class OrderDetailListAPIView(ListAPIView):
     
 class OrderDetailRetrieveAPIView(RetrieveAPIView):
     """View for retrieving a order_detail."""
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     serializer_class = OrderDetailRetrieveSerialier
     queryset = Order_Detail.objects.all()
 
@@ -76,6 +74,7 @@ class OrderItemRetrieveAPIView(RetrieveAPIView):
     permission_classes = [AllowAny]
     serializer_class = OrderItemRetrieveSerialier
     queryset = Order_Items.objects.all()
+
 
 class OrderItemUpdateAPIView(UpdateAPIView):
     """View for updating a order_item."""
