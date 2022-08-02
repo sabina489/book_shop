@@ -16,7 +16,7 @@ from order.api.views import (
 urlpatterns = [
     path("create/", OrderDetailCreateAPIView.as_view(), name="order-detail-create"),
     path("list/", OrderDetailListAPIView.as_view(), name="order-detail-list"),
-    path("retrieve/<int:pk>", OrderDetailRetrieveAPIView.as_view(), name="order-detail-retrieve"),
+    path("retrieve/detail/<int:pk>", OrderDetailRetrieveAPIView.as_view(), name="order-detail-retrieve"),
     # path("<int:pk>/update/", OrderDetailUpdateAPIView.as_view(), name="order-detail-update"),
     path("<int:pk>/delete/", OrderDetailDeleteAPIView.as_view(), name="order-detail-delete"),
     path("item/create/", OrderItemCreateAPIView.as_view(), name="order-item-create"),

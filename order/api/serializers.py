@@ -1,7 +1,7 @@
 from requests import delete
 from rest_framework import serializers
 from django.db import transaction
-from stripe import Order
+# from stripe import Order
 from cart.api.serializers import ResultCreateSerializer
 from decimal import Decimal
 
@@ -24,7 +24,7 @@ class OrderDetailCreateSerialier(serializers.ModelSerializer):
     @transaction.atomic
     def create(self, validated_data):
         cart = Cart.objects.get(user=self.context["request"].user)
-        print("************", cart.total)
+        # print("************", cart.total)
 
         order_detail = Order_Detail.objects.create(
             total=cart.total,
@@ -46,21 +46,32 @@ class OrderDetailCreateSerialier(serializers.ModelSerializer):
     
         return order_detail
 
-# class FinalOrderSerializer(serializers.ModelSerializer):
-#     """Serializer for producnt."""
+class OrderDetailListSerailizer(serializers.ModelSerializer):
+    class Meta:
+        model = Order_Detail
+        fields = (
+            "id",
+            "user_id",
+            "total",
+            "order_date",
+        )
+        read_only_fields = ("user_id","total", "id", "order_date")
 
-#     class Meta:
-#         model = Book
-#         fields = (
-#             "id",
-#             "title",
-#             "author",
-#             "description",
-#             "book_available",
-#             "image",
-#             "price",
-#             "category",
-#         )
+class FinalOrderSerializer(serializers.ModelSerializer):
+    """Serializer for producnt."""
+
+    class Meta:
+        model = Book
+        fields = (
+            "id",
+            "title",
+            "author",
+            "description",
+            "book_available",
+            "image",
+            "price",
+            "category",
+        )
 
 
 
@@ -112,6 +123,7 @@ class OrderItemCreateSerialier(serializers.ModelSerializer):
 
 class OrderItemRetrieveSerialier(serializers.ModelSerializer):
     # order = FinalOrderSerializer(read_only=True)
+    order_product = FinalOrderSerializer(read_only=True)
     
     class Meta:
         model = Order_Items
@@ -123,7 +135,17 @@ class OrderItemRetrieveSerialier(serializers.ModelSerializer):
             "order_quantity",
             # "order",
         )
-
+class OrderDetailRetrieveSerializer(serializers.ModelSerializer):
+    order_items = OrderItemRetrieveSerialier(read_only=True, many=True)
+    class Meta:
+        model = Order_Detail
+        fields = (
+            "id",
+            "user_id",
+            "total",
+            "order_date",
+            "order_items",
+        )
 class OrderItemUpdateSerialier(serializers.ModelSerializer):
     class Meta:
         model = Order_Items

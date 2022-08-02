@@ -15,6 +15,7 @@ from rest_framework.generics import (
 
 from order.api.serializers import (
     OrderDetailCreateSerialier,
+    OrderDetailListSerailizer,
     OrderDetailRetrieveSerialier,
     OrderDetailUpdateSerialier, 
     OrderDetailDeleteSerialier,
@@ -42,6 +43,8 @@ class OrderDetailRetrieveAPIView(RetrieveAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = OrderDetailRetrieveSerialier
     queryset = Order_Detail.objects.all()
+
+
 
 class OrderDetailUpdateAPIView(UpdateAPIView):
     """View for updating a order_detail."""

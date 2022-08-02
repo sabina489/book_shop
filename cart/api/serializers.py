@@ -45,6 +45,12 @@ class CartItemCreateSerializer(serializers.ModelSerializer):
         """Create a new cart item."""
         with transaction.atomic():
             cart, _ = Cart.objects.get_or_create(user=self.context["request"].user)
+            product = validated_data.get("product")
+            cart_item_with_product = cart.cart_items.filter(product=product).first()
+            if cart_item_with_product:
+                cart_item_with_product.quantity += validated_data.get("quantity")
+                cart_item_with_product.save()
+                return cart_item_with_product
             cart_item = CartItem.objects.create(cart=cart, **validated_data)
             return cart_item
 
